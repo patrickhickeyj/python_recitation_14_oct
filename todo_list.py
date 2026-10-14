@@ -1,14 +1,7 @@
-import datetime
+"""todoy_list.py: initialize classes"""
+# import datetime
 
 from io_utils import write_todo_list, read_todo_list
-
-# --- CODE TO COMPLETE: Todo Class ---
-# The Todo class represents a single task.
-# It should have a task name, a due date, and a completion status (all as private variables).
-# You need to fill in the methods to manage these attributes.
-# HINT: The main_cli.py file expects a `to_dict` method that returns a dictionary like:
-# {'task': 'task name', 'date': datetime.date(2025, 1, 1), 'completed': False}
-# Also, the __str__ method should format the output nicely.
 
 
 class Todo:
@@ -27,17 +20,22 @@ class Todo:
         self.set_completed(completed)
 
     def get_task(self):
-        # return the task name
+        """
+        get the task name
+        """
         return self.__task
 
     def get_date(self):
+        """
+        get the task date
+        """
         return self.__date
 
     def is_completed(self):
-        if self.__completed == True:
-            return True
-        else:
-            return False
+        """
+        get the task completion status
+        """
+        return bool(self.__completed)
 
     def set_task(self, new_task):
         self.__task = new_task
@@ -51,16 +49,16 @@ class Todo:
     def toggle_completion(self):
         # Flip completion status
         if self.is_completed():
-            self.__completed = False
+            self.set_completed(False)
         else:
-            self.__completed = True
+            self.set_completed(True)
 
     def to_dict(self):
         """
         Converts the Todo object to dictionary format with keys like:
         {'task': 'task name', 'date': datetime.date(2025, 1, 1), 'completed': False}
         """
-        todo_item = dict()
+        todo_item = {}
         todo_item["task"] = self.__task
         todo_item["date"] = self.__date
         todo_item["completed"] = self.__completed
