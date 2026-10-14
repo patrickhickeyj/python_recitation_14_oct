@@ -1,8 +1,8 @@
 import datetime
 from io_utils import get_integer_input, get_date_input
 import os
-# from todo_list import TodoList
-from ai_ppp_python_review_solutions import TodoList # remove this when using code in todo_list.py
+from todo_list import TodoList
+# from ai_ppp_python_review_solutions import TodoList # remove this when using code in todo_list.py
 
 def display_loaded_lists(loaded_lists):
     list_names = list(loaded_lists.keys())
@@ -33,44 +33,59 @@ def list_menu(todo_list, file_path):
         if choice == 1: # Add item
             task_name = input("Enter new task name: ").strip()
             # TODO: Do you want to check anything here?
-            
+            if task_name in todo_list.get_items(): # ADDED
+                print(f"{task_name} is already on the list.") # ADDED
+                continue
+
             due_date = get_date_input("Enter due date (YYYY-MM-DD, default today): ")
             if due_date is None:
-                # TODO: How do we make the default today?
+                due_date = datetime.date.today() # added
                 pass
             
             # TODO: Add task
+            todo_list.add_task(task_name, due_date) # added
             print(f"Task '{task_name}' added.")
             
         elif choice == 2: # Remove item
             # TODO: What if the list is empty?
-            
+            if len(todo_list.get_items()) == 0: #added
+                print("{todo_list} is empty. Cannot remove items")
+                continue
+
             max_index = len(todo_list.get_items())
             item_num = get_integer_input(f"Enter item number to remove (1-{max_index}): ", 1, max_index)
 
             # TODO: Remove the task - add error handling for invalid numbers
+            if item_num < 1 or item_num > max_index:
+                print(f"Invalid selection. This item number is not on the list")
+                continue
+            todo_list.remove_task(item_num)
 
         elif choice == 3: # Set item status
-            # TODO: What if the list is empty?
+            if len(todo_list.get_items()) == 0: 
+                print("The ToDo list is empty")
+                continue
                 
             max_index = len(todo_list.get_items())
             item_num = get_integer_input(f"Enter item number to update status (1-{max_index}): ", 1, max_index)
-
-            # TODO: Is the item number valid?
 
             print("Status options: [1] Complete, [2] Incomplete, [3] Toggle")
             status_choice = get_integer_input("Enter status choice (1-3): ", 1, 3)
             
             # TODO: Set the status - implement this with error handling
-
+            try:
+                todo_list.mark_complete(item_num, status_choice)
+                print("Task status successfully updated")
+            except Exception as e:
+                print("Unable to unable item status")
 
         elif choice == 4: # Save list
             save_path = input(f"Enter filename to save (default: {file_path}): ") or file_path
-            # TODO: Save the list using the todo list built in functionality
-                
+            todo_list.save_to_file(save_path)
+
         elif choice == 5: # Go back
             # TODO: How do we go back to the main menu?
-            pass
+            main_menu()
             
 def main_menu():
     """Main application loop."""
