@@ -1,6 +1,6 @@
 import datetime
 
-from io_utils import write_todo_list, read_todo_list
+from ai_ppp_python_review_solutions import write_todo_list, read_todo_list
 
 # --- CODE TO COMPLETE: Todo Class ---
 # The Todo class represents a single task.
@@ -10,59 +10,59 @@ from io_utils import write_todo_list, read_todo_list
 # {'task': 'task name', 'date': datetime.date(2025, 1, 1), 'completed': False}
 # Also, the __str__ method should format the output nicely.
 
-
 class Todo:
     """
     Represents a single To-Do item. Stores task name, date, and completion status.
     """
-
-    REPLACE_ME = None
-
-    def __init__(
-        self, task, date, completed=REPLACE_ME
-    ):  # what should the default value be?
-        # TODO: Your code here
-        pass
+    status = None
+    def __init__(self, task, date, completed=False): # what should the default value be?
+        # initialize the todo class
+        self.set_task(task)
+        self.set_date(date)
+        self.set_completed(completed)
 
     def get_task(self):
-        # TODO: Your code here
-        pass
+        # return the task name
+        return self.__task
 
     def get_date(self):
-        # TODO: Your code here
-        pass
+        return self.__date
 
     def is_completed(self):
-        # TODO: Your code here
-        pass
+        if self.__completed == True:
+            return True
+        else:
+            return False
 
     def set_task(self, new_task):
-        # TODO: Your code here
-        pass
+        self.__task = new_task
 
     def set_date(self, new_date):
-        # TODO: Your code here
-        pass
+        self.__date = new_date
 
     def set_completed(self, status):
-        # TODO: Your code here
-        pass
+        self.__completed = status
 
     def toggle_completion(self):
-        # TODO: Your code here
-        pass
+        # Flip completion status
+        if self.is_completed():
+            self.__completed = False
+        else:
+            self.__completed = True
 
     def to_dict(self):
         """
-        Converts the Todo object to dictionary format with keys like:
+        Converts the Todo object to dictionary format with keys like: 
         {'task': 'task name', 'date': datetime.date(2025, 1, 1), 'completed': False}
         """
-        # TODO: Your code here
-        pass
+        todo_item = dict()
+        todo_item['task'] = self.__task
+        todo_item['date'] = self.__date
+        todo_item['completed'] = self.__completed
+        return todo_item
 
     def __str__(self):
-        # TODO: Your code here
-        pass
+        return f"(task: {self.__task}, date: {self.__date}, completed: {self.__completed})"
 
 
 # --- CODE TO COMPLETE: TodoList Class ---
