@@ -67,13 +67,7 @@ class Todo:
         return todo_item
 
     def __str__(self):
-<<<<<<< HEAD
         return f"(task: {self.__task}, date: {self.__date}, completed: {self.__completed})\n"
-=======
-        return (
-            f"(task: {self.__task}, date: {self.__date}, completed: {self.__completed})"
-        )
->>>>>>> a1011bfca0a8592b4f365dc2609a468e2e9e916d
 
 
 # --- CODE TO COMPLETE: TodoList Class ---
@@ -162,6 +156,7 @@ t1 = Todo("Task 1", "Date 1")
 t2 = Todo("Task 2", "Date 2")
 item_holder = [t1, t2]
 list_1 = TodoList("List 1", item_holder)
+list_1.mark_complete(0)
 
 print(t1)
 print(list_1)
