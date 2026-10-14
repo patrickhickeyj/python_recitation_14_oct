@@ -62,7 +62,7 @@ class Todo:
         return todo_item
 
     def __str__(self):
-        return f"(task: {self.__task}, date: {self.__date}, completed: {self.__completed})"
+        return f"(task: {self.__task}, date: {self.__date}, completed: {self.__completed})\n"
 
 
 # --- CODE TO COMPLETE: TodoList Class ---
