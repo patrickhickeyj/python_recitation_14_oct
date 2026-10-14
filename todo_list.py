@@ -1,6 +1,6 @@
 import datetime
 
-from ai_ppp_python_review_solutions import write_todo_list, read_todo_list
+from io_utils import write_todo_list, read_todo_list
 
 # --- CODE TO COMPLETE: Todo Class ---
 # The Todo class represents a single task.
@@ -10,12 +10,17 @@ from ai_ppp_python_review_solutions import write_todo_list, read_todo_list
 # {'task': 'task name', 'date': datetime.date(2025, 1, 1), 'completed': False}
 # Also, the __str__ method should format the output nicely.
 
+
 class Todo:
     """
     Represents a single To-Do item. Stores task name, date, and completion status.
     """
+
     status = None
-    def __init__(self, task, date, completed=False): # what should the default value be?
+
+    def __init__(
+        self, task, date, completed=False
+    ):  # what should the default value be?
         # initialize the todo class
         self.set_task(task)
         self.set_date(date)
@@ -52,17 +57,23 @@ class Todo:
 
     def to_dict(self):
         """
-        Converts the Todo object to dictionary format with keys like: 
+        Converts the Todo object to dictionary format with keys like:
         {'task': 'task name', 'date': datetime.date(2025, 1, 1), 'completed': False}
         """
         todo_item = dict()
-        todo_item['task'] = self.__task
-        todo_item['date'] = self.__date
-        todo_item['completed'] = self.__completed
+        todo_item["task"] = self.__task
+        todo_item["date"] = self.__date
+        todo_item["completed"] = self.__completed
         return todo_item
 
     def __str__(self):
+<<<<<<< HEAD
         return f"(task: {self.__task}, date: {self.__date}, completed: {self.__completed})\n"
+=======
+        return (
+            f"(task: {self.__task}, date: {self.__date}, completed: {self.__completed})"
+        )
+>>>>>>> a1011bfca0a8592b4f365dc2609a468e2e9e916d
 
 
 # --- CODE TO COMPLETE: TodoList Class ---
@@ -140,7 +151,17 @@ class TodoList:
         Returns a formatted string representing the list.
         """
         temp_items = self.get_items()[:]
-        print("----------")
+        s1 = "----------\n"
+        s2 = ""
         for item in temp_items:
-            print(item)
-        print("----------")
+            s2 += item.__str__()
+        return s1 + s2
+
+
+t1 = Todo("Task 1", "Date 1")
+t2 = Todo("Task 2", "Date 2")
+item_holder = [t1, t2]
+list_1 = TodoList("List 1", item_holder)
+
+print(t1)
+print(list_1)
