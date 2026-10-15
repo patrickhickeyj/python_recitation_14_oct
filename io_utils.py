@@ -18,9 +18,13 @@ def write_todo_list(file_path, todos):
     with open (file_path, 'w') as file:
         file.write('To Do:\n')
         for todo in todos:
-            todo = f"{todo.get('completed')} {todo.get('date')}: {todo.get('task')}"
+            if todo.get('completed') == True:
+                completed = '[x]'
+            else:
+                completed = '[o]'
+            todo = f"{completed} {todo.get('date')}: {todo.get('task').title()}"
             
-            file.writelines(todo)
+            file.writelines(todo + "\n")
         
         
 
