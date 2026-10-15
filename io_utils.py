@@ -36,14 +36,10 @@ def read_todo_list(file_path):
                 date = None
                 task = first_half_of_line.strip()
             else:
-                completed_symbol, date = first_half_of_line.strip().split()
-                completed = (
-                    completed_symbol == "x"
-                )  # Question: Should complete = complete_symbol?
+                completed, date = first_half_of_line.strip().split()
                 task = second_half_of_line.strip()
             line_dict = {
-                # "complete_symbol": completed_symbol,
-                "completed": completed,  # Question: Should complete = complete_symbol?
+                "completed": completed,
                 "date": date,
                 "task": task,
             }
@@ -57,7 +53,7 @@ if __name__ == "__main__":
     assert test_todo_list[0]["task"] == "To Do"
     assert test_todo_list[1]["task"] == "Review project roadmap"
     assert test_todo_list[1]["date"] == "2025-10-05"
-    assert test_todo_list[1]["completed"] == True
+    assert test_todo_list[1]["completed"] == "x"
 
 
 # --- Provided functions for input validation ---
