@@ -15,8 +15,15 @@ def write_todo_list(file_path, todos):
     """
     # Your code here: Open the file and write the data in the specified format.
     # The first line of the file should be "To Do:"
-    pass
-
+    todo_list_new = []
+    with open (file_path, 'w') as file:
+        file.write('To Do:\n')
+        for todo in todos:
+            todo = f"{todo.get('completed')} {todo.get('date')}: {todo.get('task')}"
+            
+            file.writelines(todo)
+        
+        
 
 def read_todo_list(file_path):
     """
