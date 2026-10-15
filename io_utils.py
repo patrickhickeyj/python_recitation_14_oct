@@ -1,5 +1,4 @@
 import datetime
-import os
 
 # --- CODE TO COMPLETE: File Reading & Writing ---
 # This group is responsible for implementing the logic to save and load
@@ -7,6 +6,7 @@ import os
 # The expected format for each line in the file is:
 # [x or o] YYYY-MM-DD: Task name
 # 'x' means completed, 'o' means incomplete.
+
 
 def write_todo_list(file_path, todos):
     """
@@ -17,6 +17,7 @@ def write_todo_list(file_path, todos):
     # The first line of the file should be "To Do:"
     pass
 
+
 def read_todo_list(file_path):
     """
     Reads a file and returns a list of to-do dictionaries.
@@ -24,12 +25,45 @@ def read_todo_list(file_path):
     """
     # Your code here: Open the file, read each line, parse the data,
     # and create a list of dictionaries. Handle potential errors like bad format.
-    pass
+    with open(file_path, "r") as f:
+        lines = f.readlines()
+        output_dict = []
+        for line in lines:
+            first_half_of_line, second_half_of_line = line.strip().split(":")
+            if first_half_of_line == "To Do":
+                completed_symbol = None
+                completed = None
+                date = None
+                task = first_half_of_line.strip()
+            else:
+                completed_symbol, date = first_half_of_line.strip().split()
+                completed = (
+                    completed_symbol == "x"
+                )  # Question: Should complete = complete_symbol?
+                task = second_half_of_line.strip()
+            line_dict = {
+                # "complete_symbol": completed_symbol,
+                "completed": completed,  # Question: Should complete = complete_symbol?
+                "date": date,
+                "task": task,
+            }
+            output_dict.append(line_dict)
+        return output_dict
+
+
+if __name__ == "__main__":
+    test_todo_list = read_todo_list("todo_list.txt")
+    print(test_todo_list)
+    assert test_todo_list[0]["task"] == "To Do"
+    assert test_todo_list[1]["task"] == "Review project roadmap"
+    assert test_todo_list[1]["date"] == "2025-10-05"
+    assert test_todo_list[1]["completed"] == True
+
 
 # --- Provided functions for input validation ---
 # These functions are already complete. You can study them for how to
 # handle user input and basic error handling.
-def get_integer_input(prompt, min_val=1, max_val=float('inf')):
+def get_integer_input(prompt, min_val=1, max_val=float("inf")):
     while True:
         try:
             choice = input(prompt).strip()
@@ -39,9 +73,12 @@ def get_integer_input(prompt, min_val=1, max_val=float('inf')):
             if min_val <= val <= max_val:
                 return val
             else:
-                print(f"Invalid input. Please enter a number between {min_val} and {max_val}.")
+                print(
+                    f"Invalid input. Please enter a number between {min_val} and {max_val}."
+                )
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
+
 
 def get_date_input(prompt):
     while True:
@@ -49,6 +86,6 @@ def get_date_input(prompt):
         if not date_str:
             return None
         try:
-            return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+            return datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
         except ValueError:
             print("Invalid date format. Please use YYYY-MM-DD (e.g., 2025-12-31).")
