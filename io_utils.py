@@ -32,7 +32,7 @@ def read_todo_list(file_path):
     # and create a list of dictionaries. Handle potential errors like bad format.
     with open(file_path, "r") as f:
         lines = f.readlines()
-        output_dict = []
+        output = []
         for line in lines:
             first_half_of_line, second_half_of_line = line.strip().split(":")
             if first_half_of_line == "To Do":
@@ -43,13 +43,13 @@ def read_todo_list(file_path):
             else:
                 completed, date = first_half_of_line.strip().split()
                 task = second_half_of_line.strip()
-            line_dict = {
+            todo = {
                 "completed": completed,
                 "date": date,
                 "task": task,
             }
-            output_dict.append(line_dict)
-        return output_dict
+            output.append(todo)
+        return output
 
 
 if __name__ == "__main__":
