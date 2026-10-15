@@ -61,7 +61,7 @@ if __name__ == "__main__":
     assert test_todo_list[0]["task"] == "Review project roadmap"
     assert test_todo_list[0]["date"] == "2025-10-05"
     assert test_todo_list[0]["completed"] == "x"
-    test_todo_list = read_todo_list("invalid_todo_list.txt")
+    test_todo_list = read_todo_list("invalid_todo_list.txt")  # test error handling
     write_todo_list("test_write_list.txt", test_todo_list)
     test_todo_list = read_todo_list("test_write_list.txt")
     assert test_todo_list[0]["task"] == "Review project roadmap"
