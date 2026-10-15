@@ -36,12 +36,16 @@ def read_todo_list(file_path):
         for line in lines:
             first_half_of_line, second_half_of_line = line.strip().split(":")
             if first_half_of_line == "To Do":
-                completed_symbol = None
-                completed = None
-                date = None
-                task = first_half_of_line.strip()
+                continue
             else:
                 completed, date = first_half_of_line.strip().split()
+                while True:
+                    try:
+                        datetime.datetime.strptime(date, "%Y-%m-%d").date()
+                        break
+                    except ValueError:
+                        print(f"{date} is not in YYYY-MM-DD format.")
+                        date = input("Re-enter date (e.g., 2025-12-31): ").strip()
                 task = second_half_of_line.strip()
             todo = {
                 "completed": completed,
@@ -54,16 +58,15 @@ def read_todo_list(file_path):
 
 if __name__ == "__main__":
     test_todo_list = read_todo_list("todo_list.txt")
-    assert test_todo_list[0]["task"] == "To Do"
-    assert test_todo_list[1]["task"] == "Review project roadmap"
-    assert test_todo_list[1]["date"] == "2025-10-05"
-    assert test_todo_list[1]["completed"] == "x"
-    write_todo_list("test_write_list.txt", test_todo_list[1:])
+    assert test_todo_list[0]["task"] == "Review project roadmap"
+    assert test_todo_list[0]["date"] == "2025-10-05"
+    assert test_todo_list[0]["completed"] == "x"
+    test_todo_list = read_todo_list("invalid_todo_list.txt")
+    write_todo_list("test_write_list.txt", test_todo_list)
     test_todo_list = read_todo_list("test_write_list.txt")
-    assert test_todo_list[0]["task"] == "To Do"
-    assert test_todo_list[1]["task"] == "Review project roadmap"
-    assert test_todo_list[1]["date"] == "2025-10-05"
-    assert test_todo_list[1]["completed"] == "x"
+    assert test_todo_list[0]["task"] == "Review project roadmap"
+    assert test_todo_list[0]["date"] == "2025-10-05"
+    assert test_todo_list[0]["completed"] == "x"
 
 
 # --- Provided functions for input validation ---

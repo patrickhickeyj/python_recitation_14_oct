@@ -1,3 +1,4 @@
 test_write_list.txt
 __pycache__/
 .mypy_cache/
+invalid_todo_list.txt
