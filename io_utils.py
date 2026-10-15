@@ -15,18 +15,13 @@ def write_todo_list(file_path, todos):
     """
     # Your code here: Open the file and write the data in the specified format.
     # The first line of the file should be "To Do:"
-    with open (file_path, 'w') as file:
-        file.write('To Do:\n')
+    with open(file_path, "w") as f:
+        lines = ["To Do:\n"]
         for todo in todos:
-            if todo.get('completed') == True:
-                completed = '[x]'
-            else:
-                completed = '[o]'
-            todo = f"{completed} {todo.get('date')}: {todo.get('task').title()}"
-            
-            file.writelines(todo + "\n")
-        
-        
+            lines.append(f"{todo['completed']} {todo['date']}: {todo['task']}\n")
+        lines = f.writelines(lines)
+    return None
+
 
 def read_todo_list(file_path):
     """
@@ -59,7 +54,12 @@ def read_todo_list(file_path):
 
 if __name__ == "__main__":
     test_todo_list = read_todo_list("todo_list.txt")
-    print(test_todo_list)
+    assert test_todo_list[0]["task"] == "To Do"
+    assert test_todo_list[1]["task"] == "Review project roadmap"
+    assert test_todo_list[1]["date"] == "2025-10-05"
+    assert test_todo_list[1]["completed"] == "x"
+    write_todo_list("test_write_list.txt", test_todo_list[1:])
+    test_todo_list = read_todo_list("test_write_list.txt")
     assert test_todo_list[0]["task"] == "To Do"
     assert test_todo_list[1]["task"] == "Review project roadmap"
     assert test_todo_list[1]["date"] == "2025-10-05"
